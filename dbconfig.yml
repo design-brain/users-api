@@ -1,0 +1,5 @@
+development:
+  dialect: postgres
+  datasource: dbname=designbrainapi user=designbrainapi password=secret host=127.0.0.1 port=5432 sslmode=disable
+  dir: pkg/db/migrations
+  table: migrations

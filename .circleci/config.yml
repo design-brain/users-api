@@ -1,0 +1,26 @@
+version: 2
+
+default: &default
+  working_directory: /go/src/github.com/nicewrk/design-brain-api
+  docker:
+    - image: golang:alpine
+
+jobs:
+  build:
+    <<: *default
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Install dependencies
+          command: apk update && apk add build-base bash git docker
+      - run:
+          name: Build
+          command: make
+      - run: 
+          name: Test
+          command: make circletest
+      - run: 
+          name: Coverage
+          command: go get github.com/mattn/goveralls && make coveralls
